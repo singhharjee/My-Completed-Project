@@ -4,20 +4,8 @@ import numpy as np
 import tweepy
 from textblob import TextBlob  # text/tweet parse
 from tweepy import OAuthHandler
-from tkinter import Tk,Label,Entry,Button,BOTTOM,Text,PhotoImage,Frame,END
+from tkinter import*
 
-root = Tk()
-root.title("Sentiment Analysis") 
-root.geometry('1000x800')
-
-# taking image from the directory and storing the source in a variable
-icon =PhotoImage(file = r"E:\oauth_application.png")
-icon1=PhotoImage(file=r"E:\IMG_20190719_201952.png")
-# displaying the picture using a 'Label' by passing the 'picture' variriable to 'image' parameter
-background =Label(root, image = icon)
-background.pack()
-background1=Label(root,image=icon1)
-background1.pack(side="bottom")
 
 
 
@@ -38,10 +26,22 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
 
-#get data from the user
+root = Tk()
+root.title("Sentiment Analysis") 
+root.geometry('1000x800')
 
-label1 = Label(root, text="Search")
-E1 = Entry(root, bd =5)
+# taking image from the directory and storing the source in a variable
+icon =PhotoImage(file = r"E:\oauth_application.png")
+icon1=PhotoImage(file=r"E:\IMG_20190719_201952.png")
+# displaying the picture using a 'Label' by passing the 'picture' variriable to 'image' parameter
+background =Label(root, image = icon)
+background.pack()
+background1=Label(root,image=icon1)
+background1.pack(side="bottom")
+
+#get data from the user
+label1 = Label(root, text="Search",font="Serif")
+E1 = Entry(root, bd =10,font="Serif")
 
 def entry():
     return E1.get()
@@ -89,9 +89,9 @@ def tweet():
         neuperc=(len(neutral)*100)/total
 
         
-        T = Text(root,height=10, width=50)
+        T = Text(root,height=8, width=50,bd=5,font="Serif")
         T.pack()
-        T.insert(END,"**************************************************")
+        T.insert(END,"********************************************************************")
         T.insert(END,"\n")
         T.insert(END,"no. of positive tweets: ")
         T.insert(END,len(positive))
@@ -111,7 +111,7 @@ def tweet():
         T.insert(END,"percentage of neutral tweets: ")
         T.insert(END,neuperc)
         T.insert(END,"\n")
-        T.insert(END,"**************************************************")
+        T.insert(END,"********************************************************************")
 
 
         
@@ -141,13 +141,11 @@ def tweet():
         plt.tight_layout()
         plt.show()
     except ZeroDivisionError:
-        print("Twitter doesn't have any tweets regarding the entered topic")
-        t1=Text(root,height=2, width=30)
-        t1.pack
+        t1=Text(root,height=1, width=60,font="Serif")
+        t1.pack()
         t1.insert(END,"Twitter doesn't have any tweets regarding the entered topic")
     except tweepy.error.TweepError:
-        print("NO INTERNET!!! Check your internet connection")
-        t2=Text(root,height=2, width=30)
+        t2=Text(root,height=1, width=45,font="Serif")
         t2.pack()
         t2.insert(END,"NO INTERNET!!! Check your internet connection")
         
