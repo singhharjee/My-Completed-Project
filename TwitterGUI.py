@@ -27,24 +27,23 @@ api = tweepy.API(auth)
 
 
 root = Tk()
-root.title("Sentiment Analysis") 
+root.title("Twitter Sentiment Analysis") 
 root.geometry('1000x800')
-
+root.configure(bg="#E1E8ED")
 # taking image from the directory and storing the source in a variable
 icon =PhotoImage(file = r"E:\oauth_application.png")
-icon1=PhotoImage(file=r"E:\IMG_20190719_201952.png")
+icon1=PhotoImage(file=r"E:\sentimentanalysis.png")
 # displaying the picture using a 'Label' by passing the 'picture' variriable to 'image' parameter
-background =Label(root, image = icon)
+background =Label(root, image = icon,bg="#E1E8ED")
 background.pack()
 background1=Label(root,image=icon1)
 background1.pack(side="bottom")
 
 #get data from the user
-label1 = Label(root, text="Search",font="Serif")
-E1 = Entry(root, bd =10,font="Serif")
+label1 = Label(root, text="Search",font="Helvetica 20 bold",bg="#E1E8ED")
+E1 = Entry(root, bd =5,font="gotham",bg="#F5F8FA")
 
-def entry():
-    return E1.get()
+
 
 
 #cleaning up the data which is not required
@@ -53,8 +52,7 @@ def clean_data(tweets):
 
 
 def tweet():
-    entry()
-    topics=entry()
+    topics=E1.get()
     try:
         tweets=api.search(q=topics,count=1000)
         #print(tweets)   
@@ -84,33 +82,20 @@ def tweet():
                 negative.append(i)
           
         total=len(positive)+len(negative)+len(neutral)
-        posperc=(len(positive)*100)/total
-        negperc=(len(negative)*100)/total
-        neuperc=(len(neutral)*100)/total
+        posperc=round((len(positive)*100)/total,2)
+        negperc=round((len(negative)*100)/total,2)
+        neuperc=round((len(neutral)*100)/total,2)
 
         
-        T = Text(root,height=8, width=50,bd=5,font="Serif")
+        T = Text(root,height=8, width=50,bd=5,font="gotham",bg="#F5F8FA")
         T.pack()
-        T.insert(END,"********************************************************************")
-        T.insert(END,"\n")
-        T.insert(END,"no. of positive tweets: ")
-        T.insert(END,len(positive))
-        T.insert(END,"\n")
-        T.insert(END,"no. of negative tweets: ")
-        T.insert(END,len(negative))
-        T.insert(END,"\n")
-        T.insert(END,"no. of neutral tweets: ")
-        T.insert(END,len(neutral))
-        T.insert(END,"\n")
-        T.insert(END,"percentage of positive tweets: ")
-        T.insert(END,posperc)
-        T.insert(END,"\n")
-        T.insert(END,"percentage of negative tweets: ")
-        T.insert(END,negperc)
-        T.insert(END,"\n")
-        T.insert(END,"percentage of neutral tweets: ")
-        T.insert(END,neuperc)
-        T.insert(END,"\n")
+        T.insert(END,"********************************************************************"+"\n")
+        T.insert(END,"no. of positive tweets: "+str(len(positive))+"\n")
+        T.insert(END,"no. of negative tweets: "+str(len(negative))+"\n")
+        T.insert(END,"no. of neutral tweets: "+str(len(neutral))+"\n")
+        T.insert(END,"percentage of positive tweets: "+str(posperc)+"%"+"\n")
+        T.insert(END,"percentage of negative tweets: "+str(negperc)+"%"+"\n")
+        T.insert(END,"percentage of neutral tweets: "+str(neuperc)+"%"+"\n")
         T.insert(END,"********************************************************************")
 
 
@@ -141,16 +126,16 @@ def tweet():
         plt.tight_layout()
         plt.show()
     except ZeroDivisionError:
-        t1=Text(root,height=1, width=60,font="Serif")
+        t1=Text(root,height=1, width=60,font="gotham",bd=5,bg="#F5F8FA")
         t1.pack()
-        t1.insert(END,"Twitter doesn't have any tweets regarding the entered topic")
+        t1.insert(END,"OOPS!!!Twitter doesn't have any tweets regarding the entered topic")
     except tweepy.error.TweepError:
-        t2=Text(root,height=1, width=45,font="Serif")
+        t2=Text(root,height=1, width=45,font="gotham",bd=5,bg="#F5F8FA")
         t2.pack()
         t2.insert(END,"NO INTERNET!!! Check your internet connection")
         
 
-submit = Button(root, text ="Submit", command = tweet)
+submit = Button(root, text ="Submit", command = tweet,font="gotham",bg="#E1E8ED",bd=5,relief="raised")
 label1.pack()
 E1.pack()
 
