@@ -30,6 +30,8 @@ root = Tk()
 root.title("Twitter Sentiment Analysis") 
 root.geometry('1000x800')
 root.configure(bg="#E1E8ED")
+root.iconbitmap(r"E:\Twitter_Logo_Blue.ico")
+
 # taking image from the directory and storing the source in a variable
 icon =PhotoImage(file = r"E:\oauth_application.png")
 icon1=PhotoImage(file=r"E:\sentimentanalysis.png")
@@ -87,14 +89,14 @@ def tweet():
         neuperc=round((len(neutral)*100)/total,2)
 
         
-        T = Text(root,height=8, width=50,bd=5,font="gotham",bg="#F5F8FA")
+        T = Text(root,height=9, width=50,bd=5,font="gotham",bg="#F5F8FA")
         T.pack()
         T.insert(END,"********************************************************************"+"\n")
-        T.insert(END,"no. of positive tweets: "+str(len(positive))+"\n")
-        T.insert(END,"no. of negative tweets: "+str(len(negative))+"\n")
-        T.insert(END,"no. of neutral tweets: "+str(len(neutral))+"\n")
-        T.insert(END,"percentage of positive tweets: "+str(posperc)+"%"+"\n")
-        T.insert(END,"percentage of negative tweets: "+str(negperc)+"%"+"\n")
+        T.insert(END,"No. of positive tweets: "+str(len(positive))+"\n")
+        T.insert(END,"No. of negative tweets: "+str(len(negative))+"\n")
+        T.insert(END,"No. of neutral tweets: "+str(len(neutral))+"\n"+"\n")
+        T.insert(END,"Percentage of positive tweets: "+str(posperc)+"%"+"\n")
+        T.insert(END,"Percentage of negative tweets: "+str(negperc)+"%"+"\n")
         T.insert(END,"percentage of neutral tweets: "+str(neuperc)+"%"+"\n")
         T.insert(END,"********************************************************************")
 
