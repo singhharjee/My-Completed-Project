@@ -39,7 +39,7 @@ icon1=PhotoImage(file=r"E:\sentimentanalysis.png")
 background =Label(root, image = icon,bg="#E1E8ED")
 background.pack()
 background1=Label(root,image=icon1)
-background1.pack(side="bottom")
+background1.pack(side="bottom",expand=True)
 
 #get data from the user
 label1 = Label(root, text="Search",font="Helvetica 20 bold",bg="#E1E8ED")
