@@ -6,11 +6,11 @@ from textblob import TextBlob  # text/tweet parse
 from tweepy import OAuthHandler
 
 
-api_key="Jm6WDXZuiwlwUnT9mFbPdSpcg"
-api_secret_key="Wp4Gbf74R6MZWjXvj0ifKrCobwWbchhn53Mv8L7VMLbIUi6Wnd"
+api_key="eKfzeYoZWFUQ7g4ogx6KeZqRs"
+api_secret_key="suBMejO4npo3V5DjEGe3CiO3hYByPY37h4YVm7YqxqGpIMbOXn"
 
-access_token ="919434545924935681-wFjVVTbs0pmyB2VwSoj4VwGb7tBYCyr"
-access_token_secret="RaPfxU0rSMjkS3MSI9N0ztXu4I2iLMecXg79OerNHw4Ly"
+access_token ="1140296275755036672-zOAtEJ4uUD3jU7Xw0Lhugi8smm656m"
+access_token_secret="xhRYHDe9JjaJO9X2el2PW2caBX9SL1YisciOdvkZNplJY"
 
 
 
@@ -40,42 +40,32 @@ def clean_data(tweets):
 try:
     tweets=api.search(q=topics,count=1000)
     #print(tweets)   
-
-    polar=[]
+    positive=0
+    negative=0
+    neutral=0
     for t in tweets:
         text = clean_data(t.text)
         #print(text)
         analysis=TextBlob(text)
                 
         if analysis.sentiment.polarity>0:
-            polar.append('positive')
+            positive+=1
         elif analysis.sentiment.polarity<0:
-            polar.append('negative')
+            negative+=1
         elif analysis.sentiment.polarity==0:
-            polar.append('neutral')
+            neutral+=1
 
 
     print('**************************************************************',topics,'************************************************************************')
-    #print(polar)
-    positive=[]
-    negative=[]
-    neutral=[]
-    for i in polar:
-        if i=='neutral':
-            neutral.append(i)
-        elif i=='positive':
-            positive.append(i)
-        else:
-            negative.append(i)
-        
-    total=len(positive)+len(negative)+len(neutral)
-    posperc=(len(positive)*100)/total
-    negperc=(len(negative)*100)/total
-    neuperc=(len(neutral)*100)/total
 
-    print('no. of positive tweets= ',len(positive))
-    print('no. of negative tweets= ',len(negative))
-    print('no. of neutral tweets= ',len(neutral))
+    total=positive+negative+neutral
+    posperc=(positive*100)/total
+    negperc=(negative*100)/total
+    neuperc=(neutral*100)/total
+
+    print('no. of positive tweets= ',positive)
+    print('no. of negative tweets= ',negative)
+    print('no. of neutral tweets= ',neutral)
     print('% positive tweets= ',posperc)
     print('%negative tweets= ',negperc)
     print('%neutral tweets= ',neuperc)
@@ -91,13 +81,13 @@ try:
     bar_width = 0.1
     opacity = 1
 
-    plt.bar(index, len(positive), bar_width, alpha=opacity, color='g', edgecolor='w', label='positive')
+    plt.bar(index, positive, bar_width, alpha=opacity, color='g', edgecolor='w', label='positive')
 
 
-    plt.bar(index + bar_width, len(negative), bar_width, alpha=opacity, color='r', edgecolor='w', label='negative')
+    plt.bar(index + bar_width, negative, bar_width, alpha=opacity, color='r', edgecolor='w', label='negative')
 
 
-    plt.bar(index + bar_width+ bar_width, len(neutral), bar_width, alpha=opacity, color='b', edgecolor='w', label='neutral')
+    plt.bar(index + bar_width+ bar_width, neutral, bar_width, alpha=opacity, color='b', edgecolor='w', label='neutral')
 
 
     plt.xticks(index+bar_width, [topics],family='fantasy')
