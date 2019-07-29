@@ -4,7 +4,7 @@ import numpy as np
 import tweepy
 from textblob import TextBlob  # text/tweet parse
 from tweepy import OAuthHandler
-from tkinter import*
+from tkinter import Tk,Label,Entry,Text,END,Button,PhotoImage
 
 
 
@@ -58,43 +58,33 @@ def tweet():
     try:
         tweets=api.search(q=topics,count=1000)
         #print(tweets)   
-
-        polar=[]
+        positive=0
+        negative=0
+        neutral=0
         for t in tweets:
             text = clean_data(t.text)
             #print(text)
             analysis=TextBlob(text)
                     
             if analysis.sentiment.polarity>0:
-                polar.append('positive')
+                positive+=1
             elif analysis.sentiment.polarity<0:
-                polar.append('negative')
+                negative+=1
             elif analysis.sentiment.polarity==0:
-                polar.append('neutral')
-
-        positive=[]
-        negative=[]
-        neutral=[]
-        for i in polar:
-            if i=='neutral':
-                neutral.append(i)
-            elif i=='positive':
-                positive.append(i)
-            else:
-                negative.append(i)
-          
-        total=len(positive)+len(negative)+len(neutral)
-        posperc=round((len(positive)*100)/total,2)
-        negperc=round((len(negative)*100)/total,2)
-        neuperc=round((len(neutral)*100)/total,2)
+                neutral+=1
+  
+        total=positive+negative+neutral
+        posperc=round((positive*100)/total,2)
+        negperc=round((negative*100)/total,2)
+        neuperc=round((neutral*100)/total,2)
 
         
         T = Text(root,height=9, width=50,bd=5,font="gotham",bg="#F5F8FA")
         T.pack()
         T.insert(END,"********************************************************************"+"\n")
-        T.insert(END,"No. of positive tweets: "+str(len(positive))+"\n")
-        T.insert(END,"No. of negative tweets: "+str(len(negative))+"\n")
-        T.insert(END,"No. of neutral tweets: "+str(len(neutral))+"\n"+"\n")
+        T.insert(END,"No. of positive tweets: "+str(positive)+"\n")
+        T.insert(END,"No. of negative tweets: "+str(negative)+"\n")
+        T.insert(END,"No. of neutral tweets: "+str(neutral)+"\n"+"\n")
         T.insert(END,"Percentage of positive tweets: "+str(posperc)+"%"+"\n")
         T.insert(END,"Percentage of negative tweets: "+str(negperc)+"%"+"\n")
         T.insert(END,"percentage of neutral tweets: "+str(neuperc)+"%"+"\n")
@@ -109,13 +99,13 @@ def tweet():
         bar_width = 0.1
         opacity = 1
 
-        plt.bar(index, len(positive), bar_width, alpha=opacity, color='g', edgecolor='w', label='positive')
+        plt.bar(index, positive, bar_width, alpha=opacity, color='g', edgecolor='w', label='positive')
 
 
-        plt.bar(index + bar_width, len(negative), bar_width, alpha=opacity, color='r', edgecolor='w', label='negative')
+        plt.bar(index + bar_width, negative, bar_width, alpha=opacity, color='r', edgecolor='w', label='negative')
 
 
-        plt.bar(index + bar_width+ bar_width, len(neutral), bar_width, alpha=opacity, color='b', edgecolor='w', label='neutral')
+        plt.bar(index + bar_width+ bar_width, neutral, bar_width, alpha=opacity, color='b', edgecolor='w', label='neutral')
 
 
         plt.xticks(index+bar_width, [topics],family='fantasy')
