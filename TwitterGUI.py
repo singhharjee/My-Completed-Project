@@ -43,7 +43,7 @@ background1.pack(side="bottom",expand=True)
 
 #get data from the user
 label1 = Label(root, text="Search",font="Helvetica 20 bold",bg="#E1E8ED")
-E1 = Entry(root, bd =5,font="gotham",bg="#F5F8FA")
+E1 = Entry(root, bd =5,font="Helvetica 15",bg="#F5F8FA")
 
 
 
@@ -79,7 +79,7 @@ def tweet():
         neuperc=round((neutral*100)/total,2)
 
         
-        T = Text(root,height=9, width=50,bd=5,font="gotham",bg="#F5F8FA")
+        T = Text(root,height=9, width=50,bd=5,font="Helvetica 15",bg="#F5F8FA")
         T.pack()
         T.insert(END,"********************************************************************"+"\n")
         T.insert(END,"No. of positive tweets: "+str(positive)+"\n")
@@ -112,22 +112,21 @@ def tweet():
         plt.xlabel('Topics',fontweight='bold',fontsize='10')
         plt.ylabel('Sentiments',fontweight='bold',fontsize='10')
         plt.title('Twitter Sentiment Analysis',fontweight='bold', color = 'white', fontsize='17', horizontalalignment='center',backgroundcolor='black')
-
         plt.legend()
         
         plt.tight_layout()
         plt.show()
     except ZeroDivisionError:
-        t1=Text(root,height=1, width=60,font="gotham",bd=5,bg="#F5F8FA")
+        t1=Text(root,height=1, width=60,font="Helvetica 15",bd=5,bg="#F5F8FA")
         t1.pack()
         t1.insert(END,"OOPS!!!Twitter doesn't have any tweets regarding the entered topic")
     except tweepy.error.TweepError:
-        t2=Text(root,height=1, width=45,font="gotham",bd=5,bg="#F5F8FA")
+        t2=Text(root,height=1, width=45,font="Helvetica 15",bd=5,bg="#F5F8FA")
         t2.pack()
         t2.insert(END,"NO INTERNET!!! Check your internet connection")
         
 
-submit = Button(root, text ="Submit", command = tweet,font="gotham",bg="#E1E8ED",bd=5,relief="raised")
+submit = Button(root, text ="Submit", command = tweet,font="Helvetica 16",bg="#E1E8ED",bd=5,relief="raised")
 label1.pack()
 E1.pack()
 
