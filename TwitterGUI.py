@@ -9,7 +9,6 @@ from tkinter import Tk,Label,Entry,Text,END,Button,PhotoImage
 
 
 
-
 api_key="eKfzeYoZWFUQ7g4ogx6KeZqRs"
 api_secret_key="suBMejO4npo3V5DjEGe3CiO3hYByPY37h4YVm7YqxqGpIMbOXn"
 
@@ -76,6 +75,7 @@ def tweet():        #master code,here lies the main code for analysis
         
         T = Text(root,height=9, width=50,bd=5,font="Helvetica 15",bg="#F5F8FA")
         T.pack()
+        T.bell()
         T.insert(END,"********************************************************************"+"\n")
         T.insert(END,"No. of positive tweets: "+str(positive)+"\n")
         T.insert(END,"No. of negative tweets: "+str(negative)+"\n")
@@ -84,16 +84,18 @@ def tweet():        #master code,here lies the main code for analysis
         T.insert(END,"Percentage of negative tweets: "+str(negperc)+"%"+"\n")
         T.insert(END,"percentage of neutral tweets: "+str(neuperc)+"%"+"\n")
         T.insert(END,"********************************************************************")
+        T.config(state="disabled")
         graph(positive,negative,neutral,topics)       #graph() is defined after clean_data()
     except ZeroDivisionError:
         t1=Text(root,height=1, width=60,font="Helvetica 15",bd=5,bg="#F5F8FA")
         t1.pack()
         t1.insert(END,"OOPS!!!Twitter doesn't have any tweets regarding the entered topic")
+        t1.config(state="disabled")
     except tweepy.error.TweepError:
         t2=Text(root,height=1, width=45,font="Helvetica 15",bd=5,bg="#F5F8FA")
         t2.pack()
         t2.insert(END,"NO INTERNET!!! Check your internet connection")
-
+        t2.config(state="disabled")
 
 
 def clean_data(tweets):                 #cleaning up the data which is not required
